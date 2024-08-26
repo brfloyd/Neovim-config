@@ -4,6 +4,12 @@ require("brett.lazy")
 -- Use the system clipboard for yank, delete, change and put operations
 vim.o.clipboard = "unnamedplus"
 
+-- views can only be fully collapsed with the global statusline
+vim.opt.laststatus = 3
+-- Default splitting will cause your main splits to jump when opening an edgebar.
+-- To prevent this, set `splitkeep` to either `screen` or `topline`.
+vim.opt.splitkeep = "screen"
+
 -- Map copy to system clipboard
 vim.api.nvim_set_keymap("v", "<C-c>", '"+y', { noremap = true, silent = true })
 
