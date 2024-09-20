@@ -17,13 +17,14 @@ vim.api.nvim_set_keymap("v", "<C-c>", '"+y', { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-v>", '"+p', { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<C-v>", '"+p', { noremap = true, silent = true })
 
+vim.api.nvim_set_keymap("i", "jj", "<Esc>", { noremap = true })
+
 -- Sets The Line Numbering Mode So it doesent jump around as  you move.
 
 vim.opt.number = true
-vim.opt.relativenumber = false
+vim.opt.relativenumber = true
 
 -- Set no Line numbering in the file tree
-
 require("nvim-tree").setup({
 	view = {
 		number = false,
