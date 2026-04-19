@@ -110,7 +110,30 @@ return {
     vim.o.updatetime = 250
     vim.api.nvim_create_autocmd("CursorHold", {
       callback = function()
-        vim.diagnostic.open_float(nil, { focus = false })
+        if vim.api.nvim_get_mode().mode:sub(1, 1) == "i" then
+          return
+        end
+        vim.diagnostic.open_float(nil, {
+          focus = false,
+          scope = "line",
+          close_events = { "InsertEnter", "CursorMoved", "BufLeave" },
+        })
+      end,
+    })
+    vim.api.nvim_create_autocmd("InsertEnter", {
+      callback = function()
+        vim.diagnostic.config({ virtual_text = false })
+      end,
+    })
+    vim.api.nvim_create_autocmd("InsertLeave", {
+      callback = function()
+        vim.diagnostic.config({
+          virtual_text = {
+            spacing = 2,
+            source = "if_many",
+            prefix = "●",
+          },
+        })
       end,
     })
 
