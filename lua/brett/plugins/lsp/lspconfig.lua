@@ -96,11 +96,7 @@ return {
       signs = true,
       severity_sort = true,
       update_in_insert = false,
-      virtual_text = {
-        spacing = 2,
-        source = "if_many",
-        prefix = "●",
-      },
+      virtual_text = false,
       float = {
         border = "rounded",
         source = "always",
@@ -117,22 +113,6 @@ return {
           focus = false,
           scope = "line",
           close_events = { "InsertEnter", "CursorMoved", "BufLeave" },
-        })
-      end,
-    })
-    vim.api.nvim_create_autocmd("InsertEnter", {
-      callback = function()
-        vim.diagnostic.config({ virtual_text = false })
-      end,
-    })
-    vim.api.nvim_create_autocmd("InsertLeave", {
-      callback = function()
-        vim.diagnostic.config({
-          virtual_text = {
-            spacing = 2,
-            source = "if_many",
-            prefix = "●",
-          },
         })
       end,
     })
