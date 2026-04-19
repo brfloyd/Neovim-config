@@ -25,9 +25,12 @@ return {
 		})
 
 		mason_lspconfig.setup({
+			-- Neovim 0.10.x doesn't expose vim.lsp.enable(), which newer
+			-- mason-lspconfig may call when automatic_enable is on.
+			automatic_enable = false,
 			-- list of servers for mason to install
 			ensure_installed = {
-				"tsserver",
+				"ts_ls",
 				"html",
 				"cssls",
 				"tailwindcss",

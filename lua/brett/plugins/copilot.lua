@@ -3,14 +3,12 @@
 return {
 	"github/copilot.vim",
 	config = function()
-		-- Optional: Disable default <Tab> mapping and set a custom keybinding
-		vim.g.copilot_no_tab_map = false
-		vim.api.nvim_set_keymap("i", "<Tab>", 'copilot#Accept("<Tab>")', { silent = true, expr = true, script = true })
+		-- Avoid <Tab> conflicts with nvim-cmp/LuaSnip.
+		vim.g.copilot_no_tab_map = true
+		vim.keymap.set("i", "<M-l>", 'copilot#Accept("<CR>")', { silent = true, expr = true, replace_keycodes = false })
 
-		-- Function to toggle Copilot and show status
-		function ToggleCopilot()
-			local copilot_status = vim.g.copilot_enabled
-			if copilot_status == nil or copilot_status == 1 then
+		local function toggle_copilot()
+			if vim.g.copilot_enabled == nil or vim.g.copilot_enabled == 1 then
 				vim.g.copilot_enabled = 0
 				vim.cmd('echohl WarningMsg | echo "Copilot Disabled" | echohl None')
 			else
@@ -19,7 +17,6 @@ return {
 			end
 		end
 
-		-- Keymap to toggle Copilot on and off
-		vim.api.nvim_set_keymap("n", "<leader>c", ":lua ToggleCopilot()<CR>", { noremap = true, silent = true })
+		vim.keymap.set("n", "<leader>cp", toggle_copilot, { noremap = true, silent = true, desc = "Toggle Copilot" })
 	end,
 }
