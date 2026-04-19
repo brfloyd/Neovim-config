@@ -1,17 +1,11 @@
 return {
-	{
-		"AlexvZyl/nordic.nvim",
-		priority = 1000, -- make sure to load this before all the other start plugins
-		config = function()
-			require("nordic").setup({
-				bold_keywords = true,
-				transparent = {
-					bg = false,
-					float = false,
-				},
-			})
-			-- load the colorscheme here
-			vim.cmd([[colorscheme nordic]])
-		end,
-	},
+	"folke/tokyonight.nvim",
+	lazy = false,
+	priority = 1000,
+	config = function()
+		require("tokyonight").setup({
+			style = "night",
+		})
+		vim.cmd([[colorscheme tokyonight]])
+	end,
 }
