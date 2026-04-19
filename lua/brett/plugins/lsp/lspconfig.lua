@@ -1,6 +1,6 @@
 return {
   "neovim/nvim-lspconfig",
-  event = { "BufReadPre", "BufNewFile" },
+  lazy = false,
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     { "antosha417/nvim-lsp-file-operations", config = true },
@@ -11,6 +11,19 @@ return {
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
     local keymap = vim.keymap -- for conciseness
+
+    -- Neovim 0.12 exposes built-in :lsp commands, and nvim-lspconfig
+    -- may skip defining legacy aliases. Add compatibility user commands.
+    if vim.fn.exists(":LspInfo") == 0 then
+      vim.api.nvim_create_user_command("LspInfo", function()
+        vim.cmd("checkhealth vim.lsp")
+      end, { desc = "Alias to :checkhealth vim.lsp" })
+    end
+    if vim.fn.exists(":LspRestart") == 0 and vim.fn.exists(":lsp") == 2 then
+      vim.api.nvim_create_user_command("LspRestart", function()
+        vim.cmd("lsp restart")
+      end, { desc = "Alias to :lsp restart" })
+    end
 
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -57,7 +70,13 @@ return {
         keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
         opts.desc = "Restart LSP"
-        keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+        keymap.set("n", "<leader>rs", function()
+          if vim.fn.exists(":lsp") == 2 then
+            vim.cmd("lsp restart")
+          else
+            vim.cmd("LspRestart")
+          end
+        end, opts) -- mapping to restart lsp if necessary
       end,
     })
 
@@ -71,6 +90,29 @@ return {
       local hl = "DiagnosticSign" .. type
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
     end
+
+    vim.diagnostic.config({
+      underline = true,
+      signs = true,
+      severity_sort = true,
+      update_in_insert = false,
+      virtual_text = {
+        spacing = 2,
+        source = "if_many",
+        prefix = "●",
+      },
+      float = {
+        border = "rounded",
+        source = "always",
+      },
+    })
+
+    vim.o.updatetime = 250
+    vim.api.nvim_create_autocmd("CursorHold", {
+      callback = function()
+        vim.diagnostic.open_float(nil, { focus = false })
+      end,
+    })
 
     local servers = {
       "ts_ls",
@@ -118,12 +160,9 @@ return {
     }
 
     for _, server_name in ipairs(servers) do
-      local server_config = vim.lsp.config[server_name]
-      if server_config ~= nil then
-        local config = vim.tbl_deep_extend("force", { capabilities = capabilities }, server_overrides[server_name] or {})
-        vim.lsp.config(server_name, config)
-        vim.lsp.enable(server_name)
-      end
+      local config = vim.tbl_deep_extend("force", { capabilities = capabilities }, server_overrides[server_name] or {})
+      vim.lsp.config(server_name, config)
+      vim.lsp.enable(server_name)
     end
   end,
 }

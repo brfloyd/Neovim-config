@@ -1,1 +1,9 @@
 WRN 2026-04-19T01:14:51.568 ?.53285    server_start:197: Failed to start server: operation not permitted: /var/folders/8q/72fnhfzj0rd18phk_96l8kc80000gn/T/nvim.brettfloyd/NWJPqY/nvim.53285.0
+WRN 2026-04-19T01:23:16.508 ?.73017    server_start:197: Failed to start server: operation not permitted: /var/folders/8q/72fnhfzj0rd18phk_96l8kc80000gn/T/nvim.brettfloyd/8CfZxV/nvim.73017.0
+WRN 2026-04-19T01:23:54.219 ?.73162    server_start:197: Failed to start server: operation not permitted: /var/folders/8q/72fnhfzj0rd18phk_96l8kc80000gn/T/nvim.brettfloyd/04XMLO/nvim.73162.0
+WRN 2026-04-19T01:26:44.505 ?.78266    server_start:197: Failed to start server: operation not permitted: /var/folders/8q/72fnhfzj0rd18phk_96l8kc80000gn/T/nvim.brettfloyd/QrlMee/nvim.78266.0
+WRN 2026-04-19T01:30:28.739 ?.84807    server_start:197: Failed to start server: operation not permitted: /var/folders/8q/72fnhfzj0rd18phk_96l8kc80000gn/T/nvim.brettfloyd/NVueRd/nvim.84807.0
+WRN 2026-04-19T01:32:02.838 ?.88402    server_start:197: Failed to start server: operation not permitted: /var/folders/8q/72fnhfzj0rd18phk_96l8kc80000gn/T/nvim.brettfloyd/9Jz7rC/nvim.88402.0
+WRN 2026-04-19T01:32:02.838 ?.88403    server_start:197: Failed to start server: operation not permitted: /var/folders/8q/72fnhfzj0rd18phk_96l8kc80000gn/T/nvim.brettfloyd/LiqdGP/nvim.88403.0
+WRN 2026-04-19T01:32:23.089 ?.88456    server_start:197: Failed to start server: operation not permitted: /var/folders/8q/72fnhfzj0rd18phk_96l8kc80000gn/T/nvim.brettfloyd/AFMDxP/nvim.88456.0
+WRN 2026-04-19T01:34:26.707 ?.92155    server_start:197: Failed to start server: operation not permitted: /var/folders/8q/72fnhfzj0rd18phk_96l8kc80000gn/T/nvim.brettfloyd/8llWmm/nvim.92155.0
