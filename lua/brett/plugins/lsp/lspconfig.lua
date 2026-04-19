@@ -7,9 +7,6 @@ return {
     { "folke/neodev.nvim", opts = {} },
   },
   config = function()
-    -- import lspconfig plugin
-    local lspconfig = require("lspconfig")
-
     -- import cmp-nvim-lsp plugin
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
@@ -121,10 +118,11 @@ return {
     }
 
     for _, server_name in ipairs(servers) do
-      local ok = lspconfig[server_name] ~= nil
-      if ok then
+      local server_config = vim.lsp.config[server_name]
+      if server_config ~= nil then
         local config = vim.tbl_deep_extend("force", { capabilities = capabilities }, server_overrides[server_name] or {})
-        lspconfig[server_name].setup(config)
+        vim.lsp.config(server_name, config)
+        vim.lsp.enable(server_name)
       end
     end
   end,
