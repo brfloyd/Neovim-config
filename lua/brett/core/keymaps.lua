@@ -11,6 +11,12 @@ keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 
 -- clear search highlights
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
+keymap.set("n", "<Esc>", function()
+  if vim.v.hlsearch == 1 then
+    return "<cmd>nohlsearch<CR>"
+  end
+  return "<Esc>"
+end, { expr = true, silent = true, desc = "Clear search highlight" })
 
 -- delete single character without copying into register
 -- keymap.set("n", "x", '"_x')
