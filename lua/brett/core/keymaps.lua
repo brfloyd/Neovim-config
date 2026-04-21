@@ -11,6 +11,8 @@ keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 
 -- clear search highlights
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
+keymap.set("n", "<leader>r", "<cmd>checktime<CR>", { desc = "Reload if file changed on disk" })
+keymap.set("n", "<leader>R", "<cmd>edit!<CR>", { desc = "Force reload current file" })
 keymap.set("n", "<Esc>", function()
   if vim.v.hlsearch == 1 then
     return "<cmd>nohlsearch<CR>"
@@ -20,6 +22,10 @@ end, { expr = true, silent = true, desc = "Clear search highlight" })
 
 -- delete single character without copying into register
 -- keymap.set("n", "x", '"_x')
+
+-- delete without yanking
+keymap.set({ "n", "v" }, "d", '"_d', { desc = "Delete without yanking" })
+keymap.set("n", "D", '"_D', { desc = "Delete to end of line without yanking" })
 
 -- increment/decrement numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
